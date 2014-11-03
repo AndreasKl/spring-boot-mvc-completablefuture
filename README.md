@@ -18,5 +18,7 @@ This sample enables Spring MVC to handle JDK8 CompletableFuture as a result retu
 
 References:
 http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
+
 http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/request/async/DeferredResult.html
+
 http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/method/support/HandlerMethodReturnValueHandler.html
