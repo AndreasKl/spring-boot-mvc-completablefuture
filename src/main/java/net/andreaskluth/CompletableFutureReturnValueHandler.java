@@ -25,17 +25,17 @@ public class CompletableFutureReturnValueHandler implements HandlerMethodReturnV
     }
 
     final DeferredResult<Object> deferredResult = new DeferredResult<>();
-    
+
     @SuppressWarnings("unchecked")
-    CompletableFuture<? extends Object> futureValue = (CompletableFuture<? extends Object>)returnValue;
+    CompletableFuture<? extends Object> futureValue = (CompletableFuture<? extends Object>) returnValue;
     futureValue.whenComplete((result, ex) -> {
-      if(ex != null){
+      if (ex != null) {
         deferredResult.setErrorResult(ex);
       } else {
         deferredResult.setResult(result);
       }
     });
-    
+
     WebAsyncUtils.getAsyncManager(webRequest).startDeferredResultProcessing(deferredResult, mavContainer);
   }
 
