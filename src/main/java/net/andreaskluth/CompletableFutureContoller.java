@@ -12,7 +12,7 @@ public class CompletableFutureContoller {
 
   @RequestMapping(value = "/sync", method = RequestMethod.GET)
   public ModelAndView index() {
-    return new ModelAndView("index", "message", "hello world");
+    return new ModelAndView("index", "message", "bye bye sync world");
   }
 
   @RequestMapping(value = "/async", method = RequestMethod.GET)
@@ -21,7 +21,7 @@ public class CompletableFutureContoller {
 
     // It's already completed however it is about getting the pipeline to work
     // with CompletableFuture.
-    futureModelAndView.complete(new ModelAndView("index", "message", "hello world"));
+    futureModelAndView.complete(new ModelAndView("index", "message", "hello async world"));
 
     return futureModelAndView;
   }
