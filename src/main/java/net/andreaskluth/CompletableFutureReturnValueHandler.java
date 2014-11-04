@@ -19,7 +19,7 @@ public class CompletableFutureReturnValueHandler implements HandlerMethodReturnV
   @Override
   public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest) throws Exception {
-    if (returnValue == null || !CompletableFuture.class.isAssignableFrom(returnValue.getClass())) {
+    if (returnValue == null) {
       mavContainer.setRequestHandled(true);
       return;
     }
@@ -36,6 +36,14 @@ public class CompletableFutureReturnValueHandler implements HandlerMethodReturnV
       }
     });
 
+    startDeferredResultProcessing(mavContainer, webRequest, deferredResult);
+  }
+
+  /**
+   * Added to enable partial mocking and unit testing.
+   */
+  void startDeferredResultProcessing(ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
+      final DeferredResult<Object> deferredResult) throws Exception {
     WebAsyncUtils.getAsyncManager(webRequest).startDeferredResultProcessing(deferredResult, mavContainer);
   }
 
