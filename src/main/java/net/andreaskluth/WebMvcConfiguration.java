@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.DeferredResultMethodReturnValueHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ModelAndViewMethodReturnValueHandler;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @Configuration
@@ -23,21 +24,32 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
   public HandlerMethodReturnValueHandler completableFutureReturnValueHandler() {
     return new CompletableFutureReturnValueHandler();
   }
+  
+  @Bean
+  public HandlerMethodReturnValueHandler modelAndViewWithBenefitsReturnValueHandler() {
+    return new ModelAndViewWithBenefitsReturnValueHandler();
+  }
 
   @PostConstruct
   public void init() {
     final List<HandlerMethodReturnValueHandler> originalHandlers = new ArrayList<>(
         requestMappingHandlerAdapter.getReturnValueHandlers());
-    final int position = obtainDeferredValueHandlerPosition(originalHandlers);
+    
+    final int deferredPos = obtainDeferredValueHandlerPosition(originalHandlers, DeferredResultMethodReturnValueHandler.class);
     // Add our handler directly after the deferred handler.
-    originalHandlers.add(position + 1, completableFutureReturnValueHandler());
+    originalHandlers.add(deferredPos + 1, completableFutureReturnValueHandler());
+    
+    final int modelAndViewPos = obtainDeferredValueHandlerPosition(originalHandlers, ModelAndViewMethodReturnValueHandler.class);
+    // Add our handler directly before the deferred handler.
+    originalHandlers.add(modelAndViewPos, modelAndViewWithBenefitsReturnValueHandler());
+    
     requestMappingHandlerAdapter.setReturnValueHandlers(originalHandlers);
   }
 
-  private int obtainDeferredValueHandlerPosition(final List<HandlerMethodReturnValueHandler> originalHandlers) {
+  private int obtainDeferredValueHandlerPosition(final List<HandlerMethodReturnValueHandler> originalHandlers, Class<?> handlerClass) {
     for (int i = 0; i < originalHandlers.size(); i++) {
       final HandlerMethodReturnValueHandler valueHandler = originalHandlers.get(i);
-      if (DeferredResultMethodReturnValueHandler.class.isAssignableFrom(valueHandler.getClass())) {
+      if (handlerClass.isAssignableFrom(valueHandler.getClass())) {
         return i;
       }
     }

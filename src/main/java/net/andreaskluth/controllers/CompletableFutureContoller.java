@@ -1,4 +1,4 @@
-package net.andreaskluth;
+package net.andreaskluth.controllers;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CompletableFutureContoller {
 
-  @RequestMapping(value = "/sync", method = RequestMethod.GET)
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView index() {
     return new ModelAndView("index", "message", "bye bye sync world");
   }
