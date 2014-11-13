@@ -42,7 +42,7 @@ public class SessionConceptTwoCompletableFutureContoller {
         webcontext.addToSession(SESSION_KEY, 23);
       });
 
-      return new ModelAndViewWithBenefits("index", "message", "hello async world", deferredActions);
+      return new ModelAndViewWithBenefits("brokentemplate", "message", "hello async world", deferredActions);
     }, ForkJoinPool.commonPool());
 
     return runAsync;

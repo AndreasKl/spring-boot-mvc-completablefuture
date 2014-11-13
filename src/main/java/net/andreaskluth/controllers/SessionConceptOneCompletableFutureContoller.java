@@ -31,7 +31,7 @@ public class SessionConceptOneCompletableFutureContoller {
     CompletableFuture<ModelAndView> runAsync = CompletableFuture.supplyAsync(() -> {
       LOG.info("Backend Thread Id = '" + Thread.currentThread().getName() + "'.");
       session.setAttribute(SESSION_KEY, "Some value");
-      return new ModelAndView("index", "message", "hello async world");
+      return new ModelAndView("brokentemplate", "message", "hello async world");
     }, ForkJoinPool.commonPool());
 
     return runAsync;

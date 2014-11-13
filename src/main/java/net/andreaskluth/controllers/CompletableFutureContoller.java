@@ -21,7 +21,7 @@ public class CompletableFutureContoller {
 
     // It's already completed however it is about getting the pipeline to work
     // with CompletableFuture.
-    futureModelAndView.complete(new ModelAndView("index", "message", "hello async world"));
+    futureModelAndView.complete(new ModelAndView("brokentemplate", "message", "hello async world"));
 
     return futureModelAndView;
   }
