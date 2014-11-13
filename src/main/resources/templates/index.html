@@ -9,10 +9,8 @@
   <h2 th:text="${message}">hello world</h2>
 
   <ul>
-    <li><a th:href="@{/}" href="#">sync request</a></li>
+    <li><a th:href="@{/sync}" href="#">sync request</a></li>
     <li><a th:href="@{/async}" href="#">async request with CompletableFuture</a></li>
-    <li><a th:href="@{/asyncOne}" href="#">async accessing a passed through session</a></li>
-    <li><a th:href="@{/asyncTwo}" href="#">async writing to session when async chain completes</a></li>
   </ul>
 </body>
 
