@@ -1,17 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Sync or Async</title>
+<title>Message template</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
   <h2 th:text="${message}">hello world</h2>
-
-  <ul>
-    <li><a th:href="@{/sync}" href="#">sync request</a></li>
-    <li><a th:href="@{/async}" href="#">async request with CompletableFuture</a></li>
-  </ul>
 </body>
 
 </html>
